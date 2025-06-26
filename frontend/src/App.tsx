@@ -1,98 +1,64 @@
-import { Refine } from "@refinedev/core";
-import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
-import {
-  RefineSnackbarProvider,
-  useNotificationProvider,
-} from "@refinedev/mui";
-import { BrowserRouter } from "react-router-dom";
+import React, { useState } from 'react';
 
-import { AppIcon } from "@/components/app-icon";
-import { ColorModeContextProvider } from "@/contexts/color-mode";
-import { authProviderClient } from "@/providers/auth-provider/auth-provider.client";
-import { dataProvider } from "@/providers/data-provider";
-import { DevtoolsProvider } from "@/providers/devtools";
+const App: React.FC = () => {
+  // Состояние для счетчика кликов
+  const [count, setCount] = useState<number>(0);
 
-import ComputerRoundedIcon from "@mui/icons-material/ComputerRounded";
-import ApiIcon from "@mui/icons-material/Api";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import AnalyticsIcon from "@mui/icons-material/Analytics";
-import TaskAltIcon from "@mui/icons-material/TaskAlt";
-import ManageSearchIcon from "@mui/icons-material/ManageSearch";
-import HelpIcon from "@mui/icons-material/Help";
-import SettingsIcon from "@mui/icons-material/Settings";
+  // Функция для увеличения счетчика
+  const incrementCount = () => {
+    setCount((prevCount) => prevCount + 1);
+  };
 
-import AppRoutes from "@/routes/AppRoutes";
-import "./style.css";
-
-export default function App() {
   return (
-    <BrowserRouter>
-      <RefineKbarProvider>
-        <ColorModeContextProvider>
-          <RefineSnackbarProvider>
-            <DevtoolsProvider>
-              <Refine
-                routerProvider={undefined} // Удалить если используешь react-router
-                dataProvider={dataProvider}
-                notificationProvider={useNotificationProvider}
-                authProvider={authProviderClient}
-                resources={[
-                  {
-                    name: "Программы",
-                    list: "/programs",
-                    icon: <ComputerRoundedIcon />,
-                  },
-                  {
-                    name: "API",
-                    list: "/api",
-                    icon: <ApiIcon />,
-                  },
-                  {
-                    name: "Панель администратора",
-                    list: "/dashboard",
-                    icon: <DashboardIcon />,
-                  },
-                  {
-                    name: "Аналитика",
-                    list: "/analytics",
-                    icon: <AnalyticsIcon />,
-                  },
-                  {
-                    name: "Задачи",
-                    list: "/tasks",
-                    icon: <TaskAltIcon />,
-                  },
-                  {
-                    name: "История",
-                    list: "/history",
-                    icon: <ManageSearchIcon />,
-                  },
-                  {
-                    name: "Поддержка",
-                    list: "/helper",
-                    icon: <HelpIcon />,
-                  },
-                  {
-                    name: "Настройки ",
-                    list: "/settings",
-                    icon: <SettingsIcon />,
-                  },
-                ]}
-                options={{
-                  syncWithLocation: true,
-                  warnWhenUnsavedChanges: true,
-                  useNewQueryKeys: true,
-                  projectId: "5TAvqo-nlABPq-pdDwTk",
-                  title: { text: "BestHub", icon: <AppIcon /> },
-                }}
-              >
-                <AppRoutes />
-                <RefineKbar />
-              </Refine>
-            </DevtoolsProvider>
-          </RefineSnackbarProvider>
-        </ColorModeContextProvider>
-      </RefineKbarProvider>
-    </BrowserRouter>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+        fontFamily: 'Arial, sans-serif',
+        backgroundColor: '#f9f9f9',
+      }}
+    >
+      <h1 style={{ fontSize: '2rem', color: '#333' }}>Добро пожаловать!</h1>
+      <p style={{ fontSize: '1.2rem', color: '#555', marginBottom: '20px' }}>
+        Это простая заглушка для вашего приложения.
+      </p>
+
+      {/* Интерактивный элемент */}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '10px',
+        }}
+      >
+        <button
+          onClick={incrementCount}
+          style={{
+            padding: '10px 20px',
+            fontSize: '1rem',
+            color: '#fff',
+            backgroundColor: '#007bff',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            transition: 'background-color 0.3s ease',
+          }}
+          onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#0056b3')}
+          onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#007bff')}
+        >
+          Нажми меня
+        </button>
+
+        <p style={{ fontSize: '1.2rem', color: '#333' }}>
+          Количество кликов: <strong>{count}</strong>
+        </p>
+      </div>
+    </div>
   );
-}
+};
+
+export default App;
